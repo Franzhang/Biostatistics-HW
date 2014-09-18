@@ -12,7 +12,7 @@ Traditional <- function(Alpha, Power, alternative = 1){
  # The proportions are chosen. 
  Prop <- seq(0.1, 0.9, 0.1)
 
- # Set up a loop command to calculate sample sizes for H0: p = p0 versus H1: p = p1 > p0 and also for H0: p = p0 versus H1: p = p1 < p0 with level at 1% and power 80%. 
+ # Set up a loop command to calculate sample sizes for H0: p = p0 versus H1 (depend on alternative option) with level at Alpha and Power. 
  for (i in 1:9){
   for (j in 1:9){
    SampleSize[i, j] <- round(((Critical*sqrt(Prop[i]*(1-Prop[i])) + Critical1*sqrt(Prop[j]*(1 - Prop[j])))^2)/(Prop[i] - Prop[j])^2)
@@ -36,7 +36,7 @@ Arcsine <- function(Alpha, Power, alternative = 1){
  # The proportions are chosen. 
  Prop <- seq(0.1, 0.9, 0.1)
 
- # Set up a loop command to calculate sample sizes for H0: p = p0 versus H1: p = p1 > p0 and also for H0: p = p0 versus H1: p = p1 < p0 with level at 1% and power 80%. 
+ # Set up a loop command to calculate sample sizes for H0: p = p0 versus H1 (depend on alternative option) with level at Alpha and Power.
  SimpleSize <- matrix(0, nrow = 9, ncol = 9)
  for (i in 1:9){
   for (j in 1:9){
