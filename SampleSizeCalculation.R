@@ -37,7 +37,6 @@ Arcsine <- function(Alpha, Power, alternative = 1){
  Prop <- seq(0.1, 0.9, 0.1)
 
  # Set up a loop command to calculate sample sizes for H0: p = p0 versus H1 (depend on alternative option) with level at Alpha and Power.
- SimpleSize <- matrix(0, nrow = 9, ncol = 9)
  for (i in 1:9){
   for (j in 1:9){
   SampleSize[i, j] <- round(((Critical + Critical1)^2)/(2*asin(sqrt(Prop[i])) - 2*asin(sqrt(Prop[j])))^2)
