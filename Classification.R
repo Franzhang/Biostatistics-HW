@@ -121,7 +121,67 @@ SplitInfo <- entropy(as.integer(table(zoo$legs)), unit = "log2")
 GainRatio <- InfoGain/SplitInfo
 
 # Q3
-
+rm(list = ls(all = TRUE))
 seeds <- read.table("E:\\OneDrive\\BIOSTAT_MPH\\Intelligent Data Analysis\\Homework\\seeds_dataset2.txt", header = FALSE)
 data <- seeds[order(seeds$V1),][,c(1,8)]
-table(data)
+head(table(data))
+group1 <- data[data$V1 <=12.70,]
+group2 <- data[data$V1 > 12.70, ]
+# class 1 type in group1
+sum(table(group1)[,1])
+# class 3 type in group1
+sum(table(group1)[,2])
+library(entropy)
+# Group1 entropy
+e1 <- entropy(c(sum(table(group1)[,1]),sum(table(group1)[,2])),unit = "log2")
+# Group2 entropy
+e2 <- entropy(c(sum(table(group2)[,1]),sum(table(group2)[,2]),sum(table(group2)[,3])),unit = "log2")
+weighted <- (e1*sum(table(group1)) + e2 * sum(table(group2)))/210
+Entropy <- -70/210*log2(70/210) * 3
+IG <- Entropy - weighted
+IG
+
+# examine split point for 15.36
+group1 <- data[data$V1 <=15.36,]
+group2 <- data[data$V1 > 15.36, ]
+# class 1 type in group1
+sum(table(group1)[,1])
+# class 3 type in group1
+sum(table(group1)[,2])
+library(entropy)
+# Group1 entropy
+e1 <- entropy(c(sum(table(group1)[,1]),sum(table(group1)[,2])),unit = "log2")
+# Group2 entropy
+e2 <- entropy(c(sum(table(group2)[,1]),sum(table(group2)[,2])),unit = "log2")
+weighted <- (e1*sum(table(group1)) + e2 * sum(table(group2)))/210
+Entropy <- -70/210*log2(70/210) * 3
+IG <- Entropy - weighted
+IG
+
+# Q5
+x <- matrix(c(5,7,3,9,1,6,9,12,7,1,2,-2,3,4,1,-3,4,4,0,1,7,5,3,5,1,4,1,0,3,1),
+nrow = 6, byrow = TRUE)
+class <- c(1,1,0,0,1,0)
+w <- c(0,0,0,0,0)
+
+for(i in 1:6){
+xv <- ifelse(w%*%x[i,] > 0, 1, 0)
+j <- x[i,]
+if(xv > class[i]) j <- -j
+if(xv != class[i]) w <- w+j
+print(w)
+}
+
+# add the records (3 1 3 -2 1) and (5 8 6 9 0) to the dataset 
+x <- matrix(c(5,7,3,9,1,6,9,12,7,1,2,-2,3,4,1,-3,4,4,0,1,7,5,3,5,1,4,1,0,3,1,3,1,3,-2,1,5,8,6,9,1),
+nrow = 8, byrow = TRUE)
+class <- c(1,1,0,0,1,0,1,0)
+w <- c(0,0,0,0,0)
+
+for(i in 1:8){
+xv <- ifelse(w%*%x[i,] > 0, 1, 0)
+j <- x[i,]
+if(xv > class[i]) j <- -j
+if(xv != class[i]) w <- w+j
+print(w)
+}
